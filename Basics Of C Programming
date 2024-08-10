@@ -1,0 +1,119 @@
+Here’s a concise overview of the basics of C programming:
+
+### **Basics of C Programming**
+
+#### **1. Structure of a C Program**
+A basic C program consists of functions and statements. The essential components include:
+- **Header Files**: Include files that contain function declarations and macros.
+  ```c
+  #include <stdio.h>
+  ```
+- **Main Function**: The entry point of a C program.
+  ```c
+  int main() {
+      // code
+      return 0;
+  }
+  ```
+
+#### **2. Data Types**
+C supports several data types to store different kinds of data:
+- **Basic Data Types**:
+  - `int`: Integer numbers
+  - `float`: Floating-point numbers
+  - `double`: Double-precision floating-point numbers
+  - `char`: Single characters
+
+#### **3. Variables**
+Variables are used to store data. They must be declared before use:
+```c
+int age;
+float salary;
+char grade;
+```
+
+#### **4. Operators**
+C provides various operators for operations on variables and values:
+- **Arithmetic Operators**: `+`, `-`, `*`, `/`, `%`
+- **Relational Operators**: `==`, `!=`, `>`, `<`, `>=`, `<=`
+- **Logical Operators**: `&&`, `||`, `!`
+- **Assignment Operators**: `=`, `+=`, `-=`, `*=`, `/=`
+
+#### **5. Control Structures**
+Control structures manage the flow of the program:
+- **Conditional Statements**:
+  ```c
+  if (condition) {
+      // code
+  } else {
+      // code
+  }
+  ```
+- **Loops**:
+  - **`for` loop**:
+    ```c
+    for (int i = 0; i < 10; i++) {
+        // code
+    }
+    ```
+  - **`while` loop**:
+    ```c
+    while (condition) {
+        // code
+    }
+    ```
+  - **`do-while` loop**:
+    ```c
+    do {
+        // code
+    } while (condition);
+    ```
+
+#### **6. Functions**
+Functions are blocks of code that perform a specific task. They are defined with a return type, name, and parameters:
+```c
+int add(int a, int b) {
+    return a + b;
+}
+```
+
+#### **7. Arrays**
+Arrays are collections of variables of the same type:
+```c
+int numbers[5]; // Array of 5 integers
+```
+
+#### **8. Pointers**
+Pointers store the memory address of other variables:
+```c
+int x = 10;
+int *ptr = &x; // Pointer to x
+```
+
+#### **9. Input and Output**
+Standard input and output operations are handled using `printf` and `scanf`:
+```c
+printf("Enter a number: ");
+scanf("%d", &variable);
+```
+
+### **Example Program**
+Here’s a simple C program that demonstrates some of these basics:
+```c
+#include <stdio.h>
+
+int main() {
+    int num1, num2, sum;
+
+    printf("Enter two integers: ");
+    scanf("%d %d", &num1, &num2);
+
+    sum = num1 + num2;
+
+    printf("Sum = %d\n", sum);
+
+    return 0;
+}
+```
+
+This program reads two integers from the user, calculates their sum, and prints the result.
