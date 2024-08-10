@@ -1,0 +1,352 @@
+
+### **1. Basic Programs**
+
+#### **Hello, World!**
+```c
+#include <stdio.h>
+
+int main() {
+    printf("Hello, World!\n");
+    return 0;
+}
+```
+
+#### **Simple Calculator**
+```c
+#include <stdio.h>
+
+int main() {
+    char operator;
+    double num1, num2;
+
+    printf("Enter an operator (+, -, *, /): ");
+    scanf("%c", &operator);
+
+    printf("Enter two numbers: ");
+    scanf("%lf %lf", &num1, &num2);
+
+    switch (operator) {
+        case '+':
+            printf("Result: %.2lf\n", num1 + num2);
+            break;
+        case '-':
+            printf("Result: %.2lf\n", num1 - num2);
+            break;
+        case '*':
+            printf("Result: %.2lf\n", num1 * num2);
+            break;
+        case '/':
+            if (num2 != 0) {
+                printf("Result: %.2lf\n", num1 / num2);
+            } else {
+                printf("Error: Division by zero.\n");
+            }
+            break;
+        default:
+            printf("Error: Invalid operator.\n");
+            break;
+    }
+
+    return 0;
+}
+```
+
+#### **Factorial Calculator**
+```c
+#include <stdio.h>
+
+int factorial(int n) {
+    if (n == 0) return 1;
+    return n * factorial(n - 1);
+}
+
+int main() {
+    int number;
+    printf("Enter a number: ");
+    scanf("%d", &number);
+
+    printf("Factorial of %d is %d\n", number, factorial(number));
+
+    return 0;
+}
+```
+
+### **2. Intermediate Projects**
+
+#### **Tic-Tac-Toe Game**
+```c
+#include <stdio.h>
+
+char board[3][3];
+char currentPlayer = 'X';
+
+void initializeBoard() {
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            board[i][j] = ' ';
+        }
+    }
+}
+
+void printBoard() {
+    printf(" %c | %c | %c \n", board[0][0], board[0][1], board[0][2]);
+    printf("---|---|---\n");
+    printf(" %c | %c | %c \n", board[1][0], board[1][1], board[1][2]);
+    printf("---|---|---\n");
+    printf(" %c | %c | %c \n", board[2][0], board[2][1], board[2][2]);
+}
+
+int isWinner() {
+    for (int i = 0; i < 3; i++) {
+        if (board[i][0] == currentPlayer && board[i][1] == currentPlayer && board[i][2] == currentPlayer) return 1;
+        if (board[0][i] == currentPlayer && board[1][i] == currentPlayer && board[2][i] == currentPlayer) return 1;
+    }
+    if (board[0][0] == currentPlayer && board[1][1] == currentPlayer && board[2][2] == currentPlayer) return 1;
+    if (board[0][2] == currentPlayer && board[1][1] == currentPlayer && board[2][0] == currentPlayer) return 1;
+    return 0;
+}
+
+int main() {
+    initializeBoard();
+    int row, col;
+    int moves = 0;
+
+    while (1) {
+        printBoard();
+        printf("Player %c, enter row and column (0, 1, 2): ", currentPlayer);
+        scanf("%d %d", &row, &col);
+
+        if (row < 0 || row > 2 || col < 0 || col > 2 || board[row][col] != ' ') {
+            printf("Invalid move. Try again.\n");
+            continue;
+        }
+
+        board[row][col] = currentPlayer;
+        moves++;
+
+        if (isWinner()) {
+            printBoard();
+            printf("Player %c wins!\n", currentPlayer);
+            break;
+        }
+
+        if (moves == 9) {
+            printBoard();
+            printf("It's a draw!\n");
+            break;
+        }
+
+        currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+    }
+
+    return 0;
+}
+```
+
+#### **Student Grade Management System**
+```c
+#include <stdio.h>
+
+#define MAX_STUDENTS 100
+
+typedef struct {
+    char name[50];
+    int rollNumber;
+    float marks;
+} Student;
+
+void addStudent(Student students[], int *count) {
+    printf("Enter student name: ");
+    scanf("%s", students[*count].name);
+    printf("Enter roll number: ");
+    scanf("%d", &students[*count].rollNumber);
+    printf("Enter marks: ");
+    scanf("%f", &students[*count].marks);
+    (*count)++;
+}
+
+void printStudents(Student students[], int count) {
+    printf("\nList of Students:\n");
+    for (int i = 0; i < count; i++) {
+        printf("Name: %s, Roll Number: %d, Marks: %.2f\n", students[i].name, students[i].rollNumber, students[i].marks);
+    }
+}
+
+int main() {
+    Student students[MAX_STUDENTS];
+    int count = 0;
+    int choice;
+
+    do {
+        printf("\n1. Add Student\n2. Display Students\n3. Exit\nEnter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                addStudent(students, &count);
+                break;
+            case 2:
+                printStudents(students, count);
+                break;
+            case 3:
+                printf("Exiting...\n");
+                break;
+            default:
+                printf("Invalid choice. Try again.\n");
+                break;
+        }
+    } while (choice != 3);
+
+    return 0;
+}
+```
+
+### **3. Advanced Projects**
+
+#### **Library Management System**
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_BOOKS 100
+
+typedef struct {
+    char title[100];
+    char author[100];
+    int year;
+    int available;
+} Book;
+
+Book library[MAX_BOOKS];
+int bookCount = 0;
+
+void addBook() {
+    if (bookCount >= MAX_BOOKS) {
+        printf("Library is full!\n");
+        return;
+    }
+
+    printf("Enter book title: ");
+    scanf(" %[^\n]", library[bookCount].title);
+    printf("Enter author: ");
+    scanf(" %[^\n]", library[bookCount].author);
+    printf("Enter year: ");
+    scanf("%d", &library[bookCount].year);
+    library[bookCount].available = 1;
+    bookCount++;
+}
+
+void listBooks() {
+    printf("\nLibrary Catalog:\n");
+    for (int i = 0; i < bookCount; i++) {
+        printf("Title: %s\nAuthor: %s\nYear: %d\nAvailable: %s\n\n",
+            library[i].title, library[i].author, library[i].year,
+            library[i].available ? "Yes" : "No");
+    }
+}
+
+int main() {
+    int choice;
+
+    do {
+        printf("\n1. Add Book\n2. List Books\n3. Exit\nEnter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                addBook();
+                break;
+            case 2:
+                listBooks();
+                break;
+            case 3:
+                printf("Exiting...\n");
+                break;
+            default:
+                printf("Invalid choice. Try again.\n");
+                break;
+        }
+    } while (choice != 3);
+
+    return 0;
+}
+```
+
+#### **Simple Bank Management System**
+```c
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_ACCOUNTS 100
+
+typedef struct {
+    int accountNumber;
+    char name[50];
+    float balance;
+} Account;
+
+Account accounts[MAX_ACCOUNTS];
+int accountCount = 0;
+
+void createAccount() {
+    if (accountCount >= MAX_ACCOUNTS) {
+        printf("Maximum account limit reached!\n");
+        return;
+    }
+
+    printf("Enter account number: ");
+    scanf("%d", &accounts[accountCount].accountNumber);
+    printf("Enter account holder's name: ");
+    scanf(" %[^\n]", accounts[accountCount].name);
+    printf("Enter initial balance: ");
+    scanf("%f", &accounts[accountCount].balance);
+    accountCount++;
+}
+
+void displayAccounts() {
+    printf("\nList of Accounts:\n");
+    for (int i = 0; i < accountCount; i++) {
+        printf("Account Number: %d\nName: %s\nBalance: %.2f\n\n",
+            accounts[i].accountNumber, accounts[i].name, accounts[i].balance);
+    }
+}
+
+int main() {
+    int choice;
+
+    do {
+        printf("\n1. Create Account\n2. Display Accounts\n3. Exit\nEnter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                createAccount();
+                break;
+            case 2:
+
+
+                displayAccounts();
+                break;
+            case 3:
+                printf("Exiting...\n");
+                break;
+            default:
+                printf("Invalid choice. Try again.\n");
+                break;
+        }
+    } while (choice != 3);
+
+    return 0;
+}
+```
+
+### **4. Additional Resources**
+- **Books**:
+  - "The C Programming Language" by Brian W. Kernighan and Dennis M. Ritchie
+  - "C Programming: A Modern Approach" by K. N. King
+- **Online Tutorials**:
+  - [Learn C Programming](https://www.learn-c.org/)
+  - [GeeksforGeeks C Programming](https://www.geeksforgeeks.org/c-programming-language/)
+
+These examples and projects should give you a good start on practicing C programming. As you become more comfortable with the basics, you can tackle more complex projects and delve into advanced topics.
